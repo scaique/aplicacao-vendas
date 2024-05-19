@@ -8,9 +8,14 @@ body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    /* height: 100vh; */
+}
+
+#inicio {
+    margin-top: 100px;
 }
 
 form {
@@ -50,4 +55,37 @@ form button {
 
 form button:hover {
     background: #008d00;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #8a8a8a;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #666666;
+}
+
+/* Planilha */
+table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 18px;
+    text-align: left;
+}
+th, td {
+    padding: 5px 10px;
+    border: 1px solid #000000;
+}
+th {
+    background-color: #70AD47;
+}
+td {
+    background-color: #C6E0B4;
 }

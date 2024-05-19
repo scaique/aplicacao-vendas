@@ -7,28 +7,25 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <form action="{{ url_for('registro') }}" method="post" id="vendaForm">
-        <input type="number" name="valor" placeholder="Digite o valor da venda" required>
-        <br>
-        <select name="metodo" id="metodo" required>
-            <option value="" selected disabled hidden>Método de pagamento</option>
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Debito">Débito</option>
-            <option value="Credito">Crédito</option>
-        </select>
-        <br>
-        <select name="parcelas" id="parcelas">
-            <option value="" selected disabled hidden>Número de parcelas</option>
-            <option value="1x">1x</option>
-            <option value="2x">2x</option>
-            <option value="3x">3x</option>
-            <option value="4x">4x</option>
-            <option value="5x">5x</option>
-            <option value="6x">6x</option>
-        </select>
-        <br>
-        <button type="submit" onclick="showAlert()">Registrar</button>
-    </form>
+    <div id="inicio">
+        <form action="{{ url_for('registro') }}" method="post" id="vendaForm">
+            <input type="number" name="valor" placeholder="Digite o valor da venda" required>
+            <br>
+            <select name="metodo" id="metodo" required>
+                <option value="" selected disabled hidden>Método de pagamento</option>
+                <option value="Dinheiro">Dinheiro</option>
+                <option value="Debito">Débito</option>
+                <option value="Credito">Crédito</option>
+            </select>
+            <br>
+            <div class="conteudo"></div>
+            
+            <button type="submit" onclick="showAlert()">Registrar</button>
+        </form> <br><br>
+        <a href="/planilha">
+            <button>Planilha</button>
+        </a>
+    </div>
 
     <script src="../static/main.js"></script>
 </body>

@@ -1,4 +1,4 @@
-from openpyxl import load_workbook
+from openpyxl import Workbook, load_workbook
 from flask import Flask, render_template, request, redirect, url_for
 from datetime import datetime
 
@@ -38,10 +38,23 @@ elif mes == 12:
 try:
     wb = load_workbook(f'./planilhas/{mesEscrito} {ano}.xlsx')
 except FileNotFoundError:
-    wb = load_workbook(f'Base.xlsx')
+    wb = Workbook()
+    ws = wb.active
+    ws.title = f'Dia {dia}'
+    ws.append(["Dinheiro", "Débito", "Crédito", "Parcelas"])
+    # wb = load_workbook(f'Base.xlsx')
 
 # Acessando aba
-ws = wb[f'Dia {dia}']
+try:
+    ws = wb[f'Dia {dia}']
+except:
+    ws = wb.create_sheet(f'Dia {dia}')
+    ws.append(["Dinheiro", "Débito", "Crédito", "Parcelas"]) #, "", "", "", "Dinheiro", "Débito", "Crédito", "", "Total", "", "Troco", "Retirada", "", "Troco Anterior"])
+    # ws['H2'].value = '=SUM(A:A)'
+    # ws['I2'].value = '=SUM(B:B)'
+    # ws['J2'].value = '=SUM(C:C)'
+    # ws['L2'].value = '=SUM(H2:J2)'
+    # ws['O2'].value = '=H2+Q2-N2'
 
 def salvar():
     try:
@@ -54,14 +67,12 @@ def venda_D(valor, metodo):
         if metodo == 'Dinheiro':
             celula = ws[f'A{c}'].value
             if celula is None or celula == '':
-                ws[f'A{c}'] = float(valor)
-                print('Venda em DINHEIRO registrada com sucesso!')
+                ws[f'A{c}'] = valor
                 break
         elif metodo == 'Debito':
             celula = ws[f'B{c}'].value
             if celula is None or celula == '':
-                ws[f'B{c}'] = float(valor)
-                print('Venda em DEBITO registrada com sucesso!')
+                ws[f'B{c}'] = valor
                 break
 
     # Salvando arquivo
@@ -69,13 +80,10 @@ def venda_D(valor, metodo):
 
 def venda_C(valor, parcelas):
     for c in range(1, 200):
-        # partes = valor.split(';')
         celula = ws[f'C{c}'].value
         if celula is None or celula == '':
-            # ws[f'C{c}'] = float(partes[0])
-            ws[f'C{c}'] = float(valor)
+            ws[f'C{c}'] = valor
             ws[f'D{c}'] = parcelas
-            print('Venda em CREDITO registrada com sucesso!')
             break
     
     # Salvando arquivo
@@ -83,7 +91,19 @@ def venda_C(valor, parcelas):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    data = []
+    for row in ws.iter_rows(values_only=True):
+        data.append(row)
+
+    return render_template('index.html', data=data)
+
+@app.route('/planilha')
+def planilha():
+    data = []
+    for row in ws.iter_rows(values_only=True):
+        data.append(row)
+
+    return render_template('planilha.html', data=data)
 
 @app.route('/registro', methods=['POST'])
 def registro():
