@@ -4,6 +4,8 @@ from datetime import datetime
 
 app = Flask(__name__)
 
+...
+
 # Pegando data atual
 dia = datetime.now().day
 mes = datetime.now().month
@@ -34,90 +36,144 @@ elif mes == 11:
 elif mes == 12:
     mesEscrito = 'Dezembro'
 
+...
+
 # Carregando planilha
 try:
-    wb = load_workbook(f'./planilhas/{mesEscrito} {ano}.xlsx')
+    wb = load_workbook(f'./planilhas/{mesEscrito} {ano}.xlsx', data_only=True)
 except FileNotFoundError:
-    wb = Workbook()
-    ws = wb.active
-    ws.title = f'Dia {dia}'
-    ws.append(["Dinheiro", "Débito", "Crédito", "Parcelas"])
-    # wb = load_workbook(f'Base.xlsx')
+    wb = load_workbook(f'Base.xlsx', data_only=True)
+    # wb = Workbook()
+    # ws = wb.active
+    # ws.title = f'Dia {dia}'
+    # ws.append(["Dinheiro", "Débito", "Crédito", "Parcelas"])
+
+...
+
+# Criando aba para soma
+# try:
+#     ws = wb['Somas']
+# except:
+#     ws = wb.create_sheet('Somas')
+#     ws.append([" ", "Dinheiro", "Débito", "Crédito", " ", "Total"])
+#     total = { 'Dinheiro': 0, 'Debito': 0, 'Credito': 0, 'Total': 0 }
+#     ws.append([f"Dia {dia}", total['Dinheiro'], total['Debito'], total['Credito'], " ", total['Total']])
+
+# ...
+
+try:
+    ws = wb[f'Soma']
+    total = { 'Dinheiro': 0, 'Debito': 0, 'Credito': 0, 'Total': 0 }
+    total = { 'Dinheiro': ws[f'B{dia+1}'], 'Debito': ws[f'C{dia+1}'], 'Credito': ws[f'D{dia+1}'], 'Total': ws[f'F{dia+1}'] }
+except:
+    print('Erro')
 
 # Acessando aba
 try:
     ws = wb[f'Dia {dia}']
 except:
     ws = wb.create_sheet(f'Dia {dia}')
-    ws.append(["Dinheiro", "Débito", "Crédito", "Parcelas"]) #, "", "", "", "Dinheiro", "Débito", "Crédito", "", "Total", "", "Troco", "Retirada", "", "Troco Anterior"])
-    # ws['H2'].value = '=SUM(A:A)'
-    # ws['I2'].value = '=SUM(B:B)'
-    # ws['J2'].value = '=SUM(C:C)'
-    # ws['L2'].value = '=SUM(H2:J2)'
-    # ws['O2'].value = '=H2+Q2-N2'
+    ws.append(["Dinheiro", "Débito", "Crédito", "Parcelas"])
 
+...
+
+# Função para salvar o arquivo
 def salvar():
     try:
         wb.save(f'./planilhas/{mesEscrito} {ano}.xlsx')
     except PermissionError:
         print('Feche a planilha para salvar!')
 
+...
+
+# Função para registrar venda no Dinheiro ou Débito
 def venda_D(valor, metodo):
+    valor = int(valor)
     for c in range(1, 200):
         if metodo == 'Dinheiro':
             celula = ws[f'A{c}'].value
             if celula is None or celula == '':
                 ws[f'A{c}'] = valor
+                total['Dinheiro'].value += valor
+                total['Total'].value += valor
+                print(total['Dinheiro'])
                 break
         elif metodo == 'Debito':
             celula = ws[f'B{c}'].value
             if celula is None or celula == '':
                 ws[f'B{c}'] = valor
+                total['Debito'].value += valor
+                total['Total'].value += valor
                 break
 
     # Salvando arquivo
-    wb.save(f'planilhas/{mesEscrito} {ano}.xlsx')
+    salvar()
 
+...
+
+# Função para registrar venda no Crédito
 def venda_C(valor, parcelas):
+    valor = int(valor)
     for c in range(1, 200):
         celula = ws[f'C{c}'].value
         if celula is None or celula == '':
             ws[f'C{c}'] = valor
             ws[f'D{c}'] = parcelas
+            total['Credito'].value += valor
+            total['Total'].value += valor
             break
     
     # Salvando arquivo
-    wb.save(f'planilhas/{mesEscrito} {ano}.xlsx')
+    salvar()
 
+...
+
+# Página inicial: Registrar vendas
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+...
+
+# Página para visualizar a planilha do dia
+@app.route('/planilha_dia')
+def planilha_dia():
     data = []
     for row in ws.iter_rows(values_only=True):
         data.append(row)
 
-    return render_template('index.html', data=data)
+    return render_template('planilha_dia.html', data=data)
 
-@app.route('/planilha')
-def planilha():
+...
+
+# Página para visualizar a planilha do mês
+@app.route('/planilha_mes')
+def planilha_mes():
     data = []
+    ws = wb['Soma']
     for row in ws.iter_rows(values_only=True):
         data.append(row)
 
-    return render_template('planilha.html', data=data)
+    return render_template('planilha_mes.html', data=data)
 
+...
+
+# Registrando venda
 @app.route('/registro', methods=['POST'])
 def registro():
     valor = request.form['valor']
     metodo = request.form['metodo']
 
-    venda_D(valor, metodo)
-
     if metodo == 'Credito':
         parcelas = request.form['parcelas']
         venda_C(valor, parcelas)
+    else:
+        venda_D(valor, metodo)
 
     return redirect(url_for('index'))
 
+...
+
+# Rodando o programa
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
-

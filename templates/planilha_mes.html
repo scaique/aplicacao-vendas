@@ -3,29 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vendas</title>
+    <title>Total do mês</title>
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
     <div id="planilha">
-        <table>
+        <table style="font-size: 10px;">
             <thead>
                 <tr>
-                    <th>Dinheiro</th>
-                    <th>Débito</th>
-                    <th>Crédito</th>
-                    <th>Parcelas</th>
+                    <th> </th>
+                    <th>DINHEIRO</th>
+                    <th>DÉBITO</th>
+                    <th>CRÉDITO</th>
+                    <th> </th>
+                    <th>TOTAL</th>
+                    <th> </th>
+                    <th>TROCO</th>
+                    <th>RETIRADA</th>
+                    <th> </th>
+                    <th>TROCO DO MÊS ANTERIOR</th>
                 </tr>
             </thead>
             <tbody>
-                {% for row in data[1:] %}
+                {% for row in data[1:32] %}
                 <tr>
-                    {% for cell in row %}
-                    {% if 'x' in cell|string %}
+                    {% for cell in row[0:11] %}
                     <td>{{ cell if cell is not none else '' }}</td>
-                    {% else %}
-                    <td>{{ 'R$ ' + cell|string if cell is not none else '' }}</td>
-                    {% endif %}
                     {% endfor %}
                 </tr>
                 {% endfor %}

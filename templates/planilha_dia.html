@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendas</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div id="planilha">
+        <table>
+            <thead>
+                <tr>
+                    <th>DINHEIRO</th>
+                    <th>DÉBITO</th>
+                    <th>CRÉDITO</th>
+                    <th>PARECLAS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data[1:] %}
+                <tr>
+                    {% for cell in row %}
+                    {% if 'x' in cell|string %}
+                    <td>{{ cell if cell is not none else '' }}</td>
+                    {% else %}
+                    <td>{{ 'R$ ' + cell|string if cell is not none else '' }}</td>
+                    {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table> <br>
+        <a href="/">
+            <button>Inicio</button>
+        </a>
+    </div>
+</body>
+</html>
