@@ -51,12 +51,14 @@ def venda_C(ws, wb, total, valor, parcelas):
 def troco_dia(ws, wb, valor, dia):
     ws = wb['Soma']
     ws[f'H{dia+1}'] = valor
+    ws[f'H{dia+2}'] = valor
     salvar(wb)
 
 def troco_mes(ws, wb, valor):
     valor = int(valor)
     ws = wb['Soma']
     ws['K2'] = valor
+    ws['H2'] = valor
     salvar(wb)
 
 def calculo_total(ws, wb):

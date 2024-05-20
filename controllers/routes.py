@@ -32,7 +32,7 @@ def register_routes(app):
         data = []
         for row in ws.iter_rows(values_only=True):
             data.append(row)
-        return render_template('planilha_dia.html', data=data)
+        return render_template('planilha_dia.html', data=data, dia=f'{dia}/{mes}/{ano}')
 
     @app.route('/planilha_mes')
     def planilha_mes():
@@ -46,7 +46,7 @@ def register_routes(app):
         except Exception as e:
             print(f'Erro ao calcular o total. {e}')
             
-        return render_template('planilha_mes.html', data=data)
+        return render_template('planilha_mes.html', data=data, mes=f'{mesEscrito}/{ano}')
 
     @app.route('/troco')
     def troco():

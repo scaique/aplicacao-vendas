@@ -1,5 +1,5 @@
 function showAlert() {
-    alert("Venda registrada com sucesso!");
+    alert("Valor registrado com sucesso!");
 }
 
 document.addEventListener("DOMContentLoaded", function() {
