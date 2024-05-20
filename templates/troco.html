@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registrar Troco</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+    <div id="formulario">
+        <form action="{{ url_for('registro_troco') }}" method="post" id="vendaForm">
+            <input type="number" name="troco" placeholder="Digite o troco de hoje">
+            <br>
+            <input type="number" name="troco_mes" placeholder="Digite o troco do mês anterior">
+            
+            <button type="submit" onclick="showAlert()">Registrar</button>
+        </form> <br><br>
+        <a href="/">
+            <button>Inicio</button>
+        </a>
+    </div>
+
+    <script src="../static/main.js"></script>
+</body>
+</html>

@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../static/style.css">
 </head>
 <body>
-    <div id="inicio">
+    <div id="formulario">
         <form action="{{ url_for('registro') }}" method="post" id="vendaForm">
             <input type="number" name="valor" placeholder="Digite o valor da venda" required>
             <br>
@@ -22,7 +22,7 @@
             
             <button type="submit" onclick="showAlert()">Registrar</button>
         </form> <br><br>
-        <a href="/planilha_dia">
+        <a href="{{ url_for('planilha_dia') }}">
             <button>Planilha</button>
         </a>
     </div>
