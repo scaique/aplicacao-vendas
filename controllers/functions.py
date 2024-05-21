@@ -1,21 +1,25 @@
 from openpyxl import load_workbook
 from .date import obter_data_atual
+import os
 
 mesEscrito = obter_data_atual()[3]
 ano = obter_data_atual()[2]
 
 def carregar_planilha():
     try:
-        wb = load_workbook(f'./planilhas/{mesEscrito} {ano}.xlsx', data_only=True)
+        wb = load_workbook(f'./planilhas/{ano}/{mesEscrito} {ano}.xlsx', data_only=True)
     except FileNotFoundError:
-        wb = load_workbook(f'Base.xlsx', data_only=True)
+        print(f"Planilha '{mesEscrito} {ano}.xlsx' não encontrada no diretório './planilhas/{ano}.\nCarregando planilha 'Base.xlsx'")
+        wb = load_workbook(f'./Base.xlsx', data_only=True)
     return wb
 
 def salvar(wb):
+    if not os.path.exists(f'./planilhas/{ano}'):
+        os.mkdir(f'./planilhas/{ano}')
     try:
-        wb.save(f'./planilhas/{mesEscrito} {ano}.xlsx')
+        wb.save(f'./planilhas/{ano}/{mesEscrito} {ano}.xlsx')
     except PermissionError:
-        print('Feche a planilha para salvar!')
+        print('Erro ao salvar, talvez você precise fechar a planilha!')
 
 def venda_D(ws, wb, total, valor, metodo):
     valor = int(valor)
@@ -52,6 +56,8 @@ def troco_dia(ws, wb, valor, dia):
     ws = wb['Soma']
     ws[f'H{dia+1}'] = valor
     ws[f'H{dia+2}'] = valor
+    if ws['H33'].value is not 'TOTAL:':
+        ws[f'H33'].value = 'TOTAL:'
     salvar(wb)
 
 def troco_mes(ws, wb, valor):
@@ -77,6 +83,7 @@ def calculo_total(ws, wb):
     for c in range(2, 33):
         if ws[f'I{c}'].value is not None:
             total_mes += int(ws[f'I{c}'].value)
+            ws['H33'].value = 'TOTAL:'
             ws['I33'].value = total_mes
 
     salvar(wb)

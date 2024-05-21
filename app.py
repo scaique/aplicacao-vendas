@@ -8,5 +8,5 @@ register_routes(app)
 webview.create_window('Registro de Vendas', app)
 
 if __name__ == '__main__':
-    # app.run(debug=True, port=5000)
-    webview.start()
+    app.run(debug=True, port=5000)
+    # webview.start()

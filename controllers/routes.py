@@ -25,14 +25,14 @@ def register_routes(app):
 
     @app.route('/')
     def index():
-        return render_template('index.html', name='Registro de Vendas')
+        return render_template('index.html')
 
     @app.route('/planilha_dia')
     def planilha_dia():
         data = []
         for row in ws.iter_rows(values_only=True):
             data.append(row)
-        return render_template('planilha_dia.html', name='Planilha do dia', data=data, dia=f'{dia}/{mes}/{ano}')
+        return render_template('planilha_dia.html', data=data, dia=f'{dia}/{mes}/{ano}')
 
     @app.route('/planilha_mes')
     def planilha_mes():
@@ -46,11 +46,11 @@ def register_routes(app):
         except Exception as e:
             print(f'Erro ao calcular o total. {e}')
             
-        return render_template('planilha_mes.html', name='Planilha do mês', data=data, mes=f'{mesEscrito}/{ano}')
+        return render_template('planilha_mes.html', data=data, mes=f'{mesEscrito}/{ano}')
 
     @app.route('/troco')
     def troco():
-        return render_template('troco.html', name='Registro de Troco')
+        return render_template('troco.html')
 
     @app.route('/registro', methods=['POST'])
     def registro():
@@ -71,4 +71,4 @@ def register_routes(app):
             troco_mes(ws, wb, troco_mes_valor,)
         if troco_dia_valor:
             troco_dia(ws, wb, troco_dia_valor, dia)
-        return redirect(url_for('troco'))
+        return redirect(url_for('planilha_mes'))
