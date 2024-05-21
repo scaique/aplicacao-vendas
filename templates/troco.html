@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registrar Troco</title>
-    <link rel="stylesheet" href="../static/style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 </head>
 <body>
     <div id="formulario">
@@ -21,6 +21,6 @@
         </a>
     </div>
 
-    <script src="../static/main.js"></script>
+    <script src="{{ url_for('static', filename='main.js')}}" defer></script>
 </body>
 </html>
