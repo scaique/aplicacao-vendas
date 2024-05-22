@@ -6,9 +6,17 @@
     <title>Vendas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 </head>
+<tbody>
+    <div id="navbar">
+        <a href="/"><button>Inicio</button></a>
+        <a href="{{ url_for('planilha_mes') }}"><button>Vendas - Mês</button></a>
+        <a href="{{ url_for('troco') }}"><button>Troco</button></a>
+        <a href="{{ url_for('planilha_dia') }}"><button>Recarregar</button></a>
+    </div>
+</tbody>
 <body>
-    <h1>{{dia}}</h1>
-    <div id="planilha">
+    <div>
+        <h1>{{dia}}</h1>
         <table>
             <thead>
                 <tr>
@@ -31,16 +39,7 @@
                 </tr>
                 {% endfor %}
             </tbody>
-        </table> <br>
-        <a href="/">
-            <button>Inicio</button>
-        </a> <br><br>
-        <a href="{{ url_for('planilha_mes') }}">
-            <button>Planilha do Mês</button>
-        </a> <br><br>
-        <a href="{{ url_for('troco') }}">
-            <button>Registrar Troco</button>
-        </a>
+        </table>
     </div>
 </body>
 </html>

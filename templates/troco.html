@@ -6,8 +6,16 @@
     <title>Registrar Troco</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 </head>
+<tbody>
+    <div id="navbar">
+        <a href="/"><button>Inicio</button></a>
+        <a href="{{ url_for('planilha_dia') }}"><button>Vendas - Dia</button></a>
+        <a href="{{ url_for('planilha_mes') }}"><button>Vendas - Mês</button></a>
+        <a href="{{ url_for('troco') }}"><button>Recarregar</button></a>
+    </div>
+</tbody>
 <body>
-    <div id="formulario">
+    <div>
         <h1>Registrar Troco</h1>
         <form action="{{ url_for('registro_troco') }}" method="post" id="vendaForm">
             <input type="number" name="troco" placeholder="Digite o troco de hoje">
@@ -15,10 +23,7 @@
             <input type="number" name="troco_mes" placeholder="Digite o troco do mês anterior">
             
             <button type="submit" onclick="showAlert()">Registrar</button>
-        </form> <br><br>
-        <a href="/">
-            <button>Inicio</button>
-        </a>
+        </form>
     </div>
 
     <script src="{{ url_for('static', filename='main.js')}}" defer></script>
