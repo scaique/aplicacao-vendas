@@ -1,7 +1,3 @@
-function showAlert() {
-    alert("Valor registrado com sucesso!");
-}
-
 document.addEventListener("DOMContentLoaded", function() {
     const metodoSelect = document.getElementById('metodo');
     const conteudoDiv = document.querySelector('.conteudo');
