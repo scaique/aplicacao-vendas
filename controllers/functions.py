@@ -14,7 +14,11 @@ def carregar_planilha():
     return wb
 
 def salvar(wb):
+    if not os.path.exists(f'./planilhas'):
+        print("Diretório 'planilhas' não encontrado, criando diretório...")
+        os.mkdir(f'./planilhas')
     if not os.path.exists(f'./planilhas/{ano}'):
+        print(f"Diretório '{ano}' não encontrado em 'planilhas', criando diretório...")
         os.mkdir(f'./planilhas/{ano}')
     try:
         wb.save(f'./planilhas/{ano}/{mesEscrito} {ano}.xlsx')
