@@ -22,41 +22,45 @@ def salvar(wb):
         print('Erro ao salvar, talvez você precise fechar a planilha!')
 
 def venda_D(ws, wb, total, valor, metodo):
-    valor = int(valor)
-    for c in range(1, 200):
-        if metodo == 'Dinheiro':
-            celula = ws[f'A{c}'].value
-            if celula is None or celula == '':
-                ws[f'A{c}'] = valor
-                total['Dinheiro'].value += valor
-                total['Total'].value += valor
-                break
-        elif metodo == 'Debito':
-            celula = ws[f'B{c}'].value
-            if celula is None or celula == '':
-                ws[f'B{c}'] = valor
-                total['Debito'].value += valor
-                total['Total'].value += valor
-                break
+    valores = valor.split(" ")
+    for val in valores:
+        val = int(val)
+        for c in range(1, 200):
+            if metodo == 'Dinheiro':
+                celula = ws[f'A{c}'].value
+                if celula is None or celula == '':
+                    ws[f'A{c}'] = val
+                    total['Dinheiro'].value += val
+                    total['Total'].value += val
+                    break
+            elif metodo == 'Debito':
+                celula = ws[f'B{c}'].value
+                if celula is None or celula == '':
+                    ws[f'B{c}'] = val
+                    total['Debito'].value += val
+                    total['Total'].value += val
+                    break
     salvar(wb)
 
 def venda_C(ws, wb, total, valor, parcelas):
-    valor = int(valor)
-    for c in range(1, 200):
-        celula = ws[f'C{c}'].value
-        if celula is None or celula == '':
-            ws[f'C{c}'] = valor
-            ws[f'D{c}'] = parcelas
-            total['Credito'].value += valor
-            total['Total'].value += valor
-            break
+    valores = valor.split(" ")
+    for val in valores:
+        val = int(val)
+        for c in range(1, 200):
+            celula = ws[f'C{c}'].value
+            if celula is None or celula == '':
+                ws[f'C{c}'] = val
+                ws[f'D{c}'] = parcelas
+                total['Credito'].value += val
+                total['Total'].value += val
+                break
     salvar(wb)
 
 def troco_dia(ws, wb, valor, dia):
     ws = wb['Soma']
     ws[f'H{dia+1}'] = valor
     ws[f'H{dia+2}'] = valor
-    if ws['H33'].value is not 'TOTAL:':
+    if ws['H33'].value != 'TOTAL:':
         ws[f'H33'].value = 'TOTAL:'
     salvar(wb)
 

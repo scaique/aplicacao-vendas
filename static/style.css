@@ -58,6 +58,24 @@ form button:hover {
     background: #008d00;
 }
 
+/* Validação do input */
+input[type="text"]:valid {
+    border-color: #00ff00;
+}
+
+form input:focus:invalid {
+    border-color: #ff0000;
+    outline: none;
+}
+
+.invalido {
+    border-color: #ff0000;
+}
+
+.valido {
+    border-color: #00ff00;
+}
+
 /* Botões */
 button {
     width: 120px;

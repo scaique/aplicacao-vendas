@@ -26,3 +26,21 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+document.getElementById('numeros').addEventListener('input', function(e) {
+    this.setCustomValidity('');
+    const input = e.target;
+    const pattern = /^[0-9]+$/;
+    if (pattern.test(input.value)) {
+        input.classList.remove('valido');
+        input.classList.add('invalido');
+    }
+    if (!pattern.test(input.value)) {
+        input.classList.remove('valido');
+        input.classList.add('invalido');
+    }
+    if (input.value === "") {
+        input.classList.remove('invalido');
+        input.classList.remove('valido');
+    }
+});
