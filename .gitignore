@@ -1,5 +1,7 @@
 __pycache__/**
 controllers/__pycache__/
 controllers/__pycache__/**
+planilhas/**
 icon.ico
 icon.JPEG
+Base.xlsx

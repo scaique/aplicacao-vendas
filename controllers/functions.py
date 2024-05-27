@@ -26,7 +26,7 @@ def salvar(wb):
         print('Erro ao salvar, talvez você precise fechar a planilha!')
 
 def venda_D(ws, wb, total, valor, metodo):
-    valores = valor.split(" ")
+    valores = valor.strip().split()
     for val in valores:
         val = int(val)
         for c in range(1, 200):
@@ -47,7 +47,7 @@ def venda_D(ws, wb, total, valor, metodo):
     salvar(wb)
 
 def venda_C(ws, wb, total, valor, parcelas):
-    valores = valor.split(" ")
+    valores = valor.strip().split()
     for val in valores:
         val = int(val)
         for c in range(1, 200):
