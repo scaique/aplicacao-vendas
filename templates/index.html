@@ -17,17 +17,17 @@
     <div>
         <h1>Registrar Venda</h1>
         <form action="{{ url_for('registro') }}" method="post" id="vendaForm">
-            <input id="numeros" type="text" inputmode="numeric" pattern="[0-9 ]+" name="valor" placeholder="Digite o valor da venda" required>
-            <br>
+            <p id="aviso" style="font-size: 13px; color: rgba(255, 0, 0, 0.7); text-align: start;" hidden>Valor Inválido</p>
+            <input id="numeros" type="text" inputmode="numeric" pattern="[0-9 ]*" name="valor" placeholder="Digite o valor da venda" required>
+
             <select name="metodo" id="metodo" required>
                 <option value="" selected disabled hidden>Método de pagamento</option>
                 <option value="Dinheiro">Dinheiro</option>
                 <option value="Debito">Débito</option>
                 <option value="Credito">Crédito</option>
             </select>
-            <br>
-            <div class="conteudo"></div>
             
+            <div class="conteudo"></div>
             <button type="submit">Registrar</button>
         </form>
     </div>

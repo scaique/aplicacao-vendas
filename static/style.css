@@ -63,7 +63,7 @@ input[type="text"]:valid {
     border-color: #00ff00;
 }
 
-form input:focus:invalid {
+input[type="text"]:focus:invalid {
     border-color: #ff0000;
     outline: none;
 }

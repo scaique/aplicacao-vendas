@@ -26,17 +26,20 @@ document.addEventListener("DOMContentLoaded", function() {
 document.getElementById('numeros').addEventListener('input', function(e) {
     this.setCustomValidity('');
     const input = e.target;
-    const pattern = /^[0-9]+$/;
+    const pattern = /^[0-9 ]*$/;
     if (pattern.test(input.value)) {
-        input.classList.remove('valido');
-        input.classList.add('invalido');
+        input.classList.remove('invalido');
+        input.classList.add('valido');
+        document.getElementById('aviso').setAttribute('hidden', '')
     }
     if (!pattern.test(input.value)) {
         input.classList.remove('valido');
         input.classList.add('invalido');
+        document.getElementById('aviso').removeAttribute('hidden')
     }
     if (input.value === "") {
         input.classList.remove('invalido');
         input.classList.remove('valido');
+        document.getElementById('aviso').setAttribute('hidden', '')
     }
 });
