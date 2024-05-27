@@ -17,8 +17,6 @@ Automatizar o processo de registro de vendas da loja, classificando-as por forma
 - **Organização:** Mantém as informações financeiras organizadas e de fácil acesso.
 
 ## Videos
-<div>
-    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7198405750224760832?compact=1" height="300" width="400" frameborder="0" allowfullscreen></iframe>
-    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7199179403635871747?compact=1" height="300" width="400" frameborder="0" allowfullscreen></iframe>
-    <iframe src="https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7200895456833343488?compact=1" height="300" width="400" frameborder="0" allowfullscreen></iframe>
-</div>
+![](https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7198405750224760832?compact=1)
+![](https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7199179403635871747?compact=1)
+![](https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7200895456833343488?compact=1)
