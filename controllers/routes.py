@@ -77,3 +77,8 @@ def register_routes(app):
         if troco_dia_valor:
             troco_dia(ws, wb, troco_dia_valor, dia)
         return redirect(url_for('planilha_mes'))
+
+def error(app, e):
+    @app.errorhandler(Exception)
+    def error_notfound(error):
+        return render_template('erro.html', mensagem=e), error.code

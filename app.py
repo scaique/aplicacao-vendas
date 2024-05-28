@@ -1,9 +1,13 @@
 from flask import Flask
-from controllers.routes import register_routes
+from controllers.routes import register_routes, error
 import webview
 
 app = Flask(__name__, static_folder='./static', template_folder='./templates')
-register_routes(app)
+
+try:
+    register_routes(app)
+except Exception as e:
+    error(app, e)
 
 webview.create_window('Registro de Vendas', app)
 
