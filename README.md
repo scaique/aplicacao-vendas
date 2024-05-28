@@ -1,3 +1,11 @@
+## App em Execução (Videos)
+
+clique nas imagens para visualizar os videos
+
+[![Video 1](https://media.licdn.com/dms/image/D4E05AQEBySUXWOHs1g/videocover-high/0/1716418134270?e=2147483647&v=beta&t=eFf0eiWsGDuituUqKPzMuN0QMNseyUfS2y6OW8nTbGc)](https://www.linkedin.com/posts/sergio-caique-da-silva_python-flask-web-activity-7199179513845432321-eku2/)
+
+[![Video 2](https://media.licdn.com/dms/image/D4D05AQHl4uxa1ILi3w/videocover-high/0/1716827265370?e=2147483647&v=beta&t=lz_sSQaQ8aHy4JGWk2UxrBXhSOYN1utnTKZVL2yUZ18)](https://www.linkedin.com/posts/sergio-caique-da-silva_python-flask-web-activity-7200895470947254273-fVu3/)
+
 ## Objetivo
 Automatizar o processo de registro de vendas da loja, classificando-as por formas de pagamento: dinheiro, débito e crédito. Além disso, realizar cálculos do total de vendas diárias e mensais, registrar troco do caixa e retiradas de dinheiro. O objetivo principal é aumentar a eficiência e precisão no controle financeiro.
 
@@ -15,8 +23,3 @@ Automatizar o processo de registro de vendas da loja, classificando-as por forma
 ## Benefícios
 - **Eficiência:** A automação economiza tempo, permitindo que o foco seja direcionado para outras áreas estratégicas.
 - **Organização:** Mantém as informações financeiras organizadas e de fácil acesso.
-
-## Videos
-![](https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7198405750224760832?compact=1)
-![](https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7199179403635871747?compact=1)
-![](https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7200895456833343488?compact=1)
