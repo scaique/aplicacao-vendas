@@ -1,4 +1,5 @@
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, abort
+from openpyxl import Workbook
 from .date import obter_data_atual
 from .functions import carregar_planilha, salvar, venda_D, venda_C, troco_dia, troco_mes, calculo_total
 
@@ -14,18 +15,22 @@ def register_routes(app):
             'Credito': ws[f'D{dia+1}'], 
             'Total': ws[f'F{dia+1}']
         }
-    except:
-        print('Erro ao carregar a planilha "Soma".')
+    except Exception as e:
+        return 'Erro ao carregar a planilha "Soma".'
 
     try:
         ws = wb[f'Dia {dia}']
-    except:
+    except Exception as e:
         ws = wb.create_sheet(f'Dia {dia}')
         ws.append(["Dinheiro", "Débito", "Crédito", "Parcelas"])
 
     @app.route('/')
     def index():
         return render_template('index.html')
+
+    @app.errorhandler(Exception)
+    def error_notfound(error):
+        return render_template('erro.html', e=error.description), error.code
 
     @app.route('/planilha_dia')
     def planilha_dia():

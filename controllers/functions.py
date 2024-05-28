@@ -9,8 +9,8 @@ def carregar_planilha():
     try:
         wb = load_workbook(f'./planilhas/{ano}/{mesEscrito} {ano}.xlsx', data_only=True)
     except FileNotFoundError:
-        print(f"Planilha '{mesEscrito} {ano}.xlsx' não encontrada no diretório './planilhas/{ano}.\nCarregando planilha 'Base.xlsx'")
         wb = load_workbook(f'./Base.xlsx', data_only=True)
+        print(f"Planilha '{mesEscrito} {ano}.xlsx' não encontrada no diretório './planilhas/{ano}.\nCarregando planilha 'Base.xlsx'")
     return wb
 
 def salvar(wb):
