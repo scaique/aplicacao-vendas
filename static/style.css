@@ -123,3 +123,25 @@ td {
 #navbar a {
     display: block;
 }
+
+/* Notificação */
+.notification {
+    width: 50%;
+    position: fixed;
+    bottom: 20px;
+    justify-content: center;
+    background-color: #f4f4f400;
+    color: white;
+}
+
+.alert {
+    margin: 10px;
+}
+
+.alert-success {
+    font-size: 18px;
+    background-color: #28a745;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}

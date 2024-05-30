@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrar Troco</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
-</head>
-<tbody>
+{% extends "template.html" %}
+
+{% block title %}Registrar Troco{% endblock %}
+
+{% block tbody %}
     <div id="navbar">
         <a href="/"><button>Inicio</button></a>
         <a href="{{ url_for('planilha_dia') }}"><button>Vendas - Dia</button></a>
         <a href="{{ url_for('planilha_mes') }}"><button>Vendas - Mês</button></a>
         <a href="{{ url_for('troco') }}"><button>Recarregar</button></a>
     </div>
-</tbody>
-<body>
+{% endblock %}
+
+{% block body %}
     <div>
         <h1>Registrar Troco</h1>
         <form action="{{ url_for('registro_troco') }}" method="post" id="vendaForm">
@@ -26,6 +23,13 @@
         </form>
     </div>
 
-    <script src="{{ url_for('static', filename='main.js')}}" defer></script>
-</body>
-</html>
+    <div id="notification" class="notification">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+{% endblock %}

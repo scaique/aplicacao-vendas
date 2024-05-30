@@ -4,8 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
     
     const conteudo = `<select name="parcelas" id="parcelas" required>
-    <option value="" selected disabled hidden>Número de parcelas</option>
-    <option value="1x">1x</option>
+    <option value="1x" selected>1x</option>
     <option value="2x">2x</option>
     <option value="3x">3x</option>
     <option value="4x">4x</option>

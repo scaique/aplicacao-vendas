@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Total do mês</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
-</head>
-<tbody>
+{% extends "template.html" %}
+
+{% block title %}Total do mês{% endblock %}
+
+{% block tbody %}
     <div id="navbar">
         <a href="/"><button>Inicio</button></a>
         <a href="{{ url_for('planilha_dia') }}"><button>Vendas - Dia</button></a>
         <a href="{{ url_for('planilha_mes') }}"><button>Recarregar</button></a>
     </div>
-</tbody>
-<body>
+{% endblock %}
+
+{% block body %}
     <div>
         <h1>{{mes}}</h1>
         <table style="font-size: 10px;">
@@ -53,5 +50,4 @@
             </tbody>
         </table>
     </div>
-</body>
-</html>
+{% endblock %}
