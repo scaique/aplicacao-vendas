@@ -14,36 +14,40 @@ document.addEventListener("DOMContentLoaded", function() {
 </select>
 <br>`;
 
-    metodoSelect.addEventListener('change', function() {
-        if (this.value === 'Credito') {
-            conteudoDiv.innerHTML = conteudo;
-        } else {
-            conteudoDiv.innerHTML = '';
-        }
-    });
+    if (metodoSelect) {
+        metodoSelect.addEventListener('change', function() {
+            if (this.value === 'Credito') {
+                conteudoDiv.innerHTML = conteudo;
+            } else {
+                conteudoDiv.innerHTML = '';
+            }
+        });
+    }
 });
 
 // Validação do formulário
-document.getElementById('numeros').addEventListener('input', function(e) {
-    this.setCustomValidity('');
-    const input = e.target;
-    const pattern = /^[0-9 ]*$/;
-    if (pattern.test(input.value)) {
-        input.classList.remove('invalido');
-        input.classList.add('valido');
-        document.getElementById('aviso').setAttribute('hidden', '')
-    }
-    if (!pattern.test(input.value)) {
-        input.classList.remove('valido');
-        input.classList.add('invalido');
-        document.getElementById('aviso').removeAttribute('hidden')
-    }
-    if (input.value === "") {
-        input.classList.remove('invalido');
-        input.classList.remove('valido');
-        document.getElementById('aviso').setAttribute('hidden', '')
-    }
-});
+if (document.getElementById('numeros')) {
+    document.getElementById('numeros').addEventListener('input', function(e) {
+        this.setCustomValidity('');
+        const input = e.target;
+        const pattern = /^[0-9 ]*$/;
+        if (pattern.test(input.value)) {
+            input.classList.remove('invalido');
+            input.classList.add('valido');
+            document.getElementById('aviso').setAttribute('hidden', '')
+        }
+        if (!pattern.test(input.value)) {
+            input.classList.remove('valido');
+            input.classList.add('invalido');
+            document.getElementById('aviso').removeAttribute('hidden')
+        }
+        if (input.value === "") {
+            input.classList.remove('invalido');
+            input.classList.remove('valido');
+            document.getElementById('aviso').setAttribute('hidden', '')
+        }
+    });
+}
 
 // Notificação
 document.addEventListener('DOMContentLoaded', function() {
@@ -51,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (notification) {
         setTimeout(function() {
             notification.style.display = 'none';
-        }, 15000);
+        }, 10000);
     }
 });
 
@@ -63,4 +67,8 @@ function countTimer(tempo, display) {
     }, 1000);
 }
 
-window.onload = () => countTimer(14, document.querySelector('#timer'));
+window.onload = () => {
+    document.querySelectorAll('.timer').forEach(timer => {
+        countTimer(9, timer);
+    });
+}

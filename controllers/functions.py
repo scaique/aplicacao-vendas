@@ -36,7 +36,7 @@ def wb_ws_total():
     
     return wb, ws, total
 
-def salvar(wb, valor: int | None = None, metodo: str | None = None):
+def salvar(wb):
     if not os.path.exists(f'./planilhas'):
         flash("Criando diretório 'planilhas'...", 'success')
         os.mkdir(f'./planilhas')
@@ -45,10 +45,6 @@ def salvar(wb, valor: int | None = None, metodo: str | None = None):
         os.mkdir(f'./planilhas/{ano}')
     try:
         wb.save(f'./planilhas/{ano}/{mesEscrito} {ano}.xlsx')
-        if valor != None and metodo != None and metodo != 'Troco':
-            flash(f'R${valor},00 no {metodo} registrado com sucesso.', 'success')
-        elif valor != None and metodo != None and metodo == 'Troco':
-            flash(f'{metodo} no valor de R${valor},00 registrado com sucesso.', 'success')
     except PermissionError:
         flash('Erro ao salvar, talvez você precise fechar a planilha!', 'success')
 
@@ -56,6 +52,7 @@ def venda_D(ws, wb, total, valor, metodo):
     valores = valor.strip().split()
     for val in valores:
         val = int(val)
+        flash(f'R${val},00 no {metodo} registrado com sucesso.', 'success')
         for c in range(1, 500):
             if metodo == 'Dinheiro':
                 celula = ws[f'A{c}'].value
@@ -71,12 +68,13 @@ def venda_D(ws, wb, total, valor, metodo):
                     total['Debito'].value += val
                     total['Total'].value += val
                     break
-    salvar(wb, val, metodo)
+    salvar(wb)
 
 def venda_C(ws, wb, total, valor, parcelas):
     valores = valor.strip().split()
     for val in valores:
         val = int(val)
+        flash(f'R${val},00 no Crédito registrado com sucesso.', 'success')
         for c in range(1, 500):
             celula = ws[f'C{c}'].value
             if celula is None or celula == '':
@@ -85,22 +83,25 @@ def venda_C(ws, wb, total, valor, parcelas):
                 total['Credito'].value += val
                 total['Total'].value += val
                 break
-    salvar(wb, val, 'Crédito')
+    salvar(wb)
 
 def troco_dia(ws, wb, valor, dia):
+    valor = int(valor)
     ws = wb['Soma']
     ws[f'H{dia+1}'] = valor
     ws[f'H{dia+2}'] = valor
     if ws['H33'].value != 'TOTAL:':
         ws[f'H33'].value = 'TOTAL:'
-    salvar(wb, valor, 'Troco')
+    salvar(wb)
+    flash(f'Troco no valor de R${valor},00 registrado com sucesso.', 'success')
 
 def troco_mes(ws, wb, valor):
     valor = int(valor)
     ws = wb['Soma']
     ws['K2'] = valor
     ws['H2'] = valor
-    salvar(wb, valor, 'Troco')
+    salvar(wb)
+    flash(f'Troco no valor de R${valor},00 registrado com sucesso.', 'success')
 
 def calculo_total(ws, wb):
     ws = wb['Soma']

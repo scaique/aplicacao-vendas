@@ -60,7 +60,7 @@ def register_routes(app):
                 troco_mes(ws, wb, troco_mes_valor,)
             if troco_dia_valor:
                 troco_dia(ws, wb, troco_dia_valor, dia)
-            return redirect(url_for('planilha_mes'))
+            return redirect(url_for('troco'))
     except Exception as e:
         @app.errorhandler(Exception)
         def erro_carregar(erro):
