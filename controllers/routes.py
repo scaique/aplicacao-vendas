@@ -1,7 +1,6 @@
-from flask import render_template, request, redirect, url_for, flash
-from openpyxl import Workbook
+from flask import render_template, request, redirect, url_for
 from .date import obter_data_atual
-from .functions import carregar_planilha, wb_ws_total, venda_D, venda_C, troco_dia, troco_mes, calculo_total
+from .functions import wb_ws_total, venda_D, venda_C, troco_dia, troco_mes, calculo_total
 
 def register_routes(app):
     try:

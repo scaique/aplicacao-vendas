@@ -1,7 +1,7 @@
+from flask import flash
 from openpyxl import load_workbook
 from .date import obter_data_atual
 import os
-from flask import flash
 
 mesEscrito = obter_data_atual()[3]
 ano = obter_data_atual()[2]
@@ -36,15 +36,19 @@ def wb_ws_total():
     
     return wb, ws, total
 
-def salvar(wb):
+def salvar(wb, valor: int | None = None, metodo: str | None = None):
     if not os.path.exists(f'./planilhas'):
-        flash("Diretório 'planilhas' não encontrado, criando diretório...", 'success')
+        flash("Criando diretório 'planilhas'...", 'success')
         os.mkdir(f'./planilhas')
     if not os.path.exists(f'./planilhas/{ano}'):
-        flash(f"Diretório '{ano}' não encontrado em 'planilhas', criando diretório...", 'success')
+        flash(f"Criando diretório 'planilhas/{ano}'...", 'success')
         os.mkdir(f'./planilhas/{ano}')
     try:
         wb.save(f'./planilhas/{ano}/{mesEscrito} {ano}.xlsx')
+        if valor != None and metodo != None and metodo != 'Troco':
+            flash(f'R${valor},00 no {metodo} registrado com sucesso.', 'success')
+        elif valor != None and metodo != None and metodo == 'Troco':
+            flash(f'{metodo} no valor de R${valor},00 registrado com sucesso.', 'success')
     except PermissionError:
         flash('Erro ao salvar, talvez você precise fechar a planilha!', 'success')
 
@@ -52,7 +56,6 @@ def venda_D(ws, wb, total, valor, metodo):
     valores = valor.strip().split()
     for val in valores:
         val = int(val)
-        flash(f'R${val},00 no {metodo} registrado com sucesso.', 'success')
         for c in range(1, 500):
             if metodo == 'Dinheiro':
                 celula = ws[f'A{c}'].value
@@ -68,13 +71,12 @@ def venda_D(ws, wb, total, valor, metodo):
                     total['Debito'].value += val
                     total['Total'].value += val
                     break
-    salvar(wb)
+    salvar(wb, val, metodo)
 
 def venda_C(ws, wb, total, valor, parcelas):
     valores = valor.strip().split()
     for val in valores:
         val = int(val)
-        flash(f'R${val},00 no Crédito registrado com sucesso.', 'success')
         for c in range(1, 500):
             celula = ws[f'C{c}'].value
             if celula is None or celula == '':
@@ -83,7 +85,7 @@ def venda_C(ws, wb, total, valor, parcelas):
                 total['Credito'].value += val
                 total['Total'].value += val
                 break
-    salvar(wb)
+    salvar(wb, val, 'Crédito')
 
 def troco_dia(ws, wb, valor, dia):
     ws = wb['Soma']
@@ -91,16 +93,14 @@ def troco_dia(ws, wb, valor, dia):
     ws[f'H{dia+2}'] = valor
     if ws['H33'].value != 'TOTAL:':
         ws[f'H33'].value = 'TOTAL:'
-    salvar(wb)
-    flash(f'Troco no valor de R${valor},00 registrado com sucesso.', 'success')
+    salvar(wb, valor, 'Troco')
 
 def troco_mes(ws, wb, valor):
     valor = int(valor)
     ws = wb['Soma']
     ws['K2'] = valor
     ws['H2'] = valor
-    salvar(wb)
-    flash(f'Troco no valor de R${valor},00 registrado com sucesso.', 'success')
+    salvar(wb, valor, 'Troco')
 
 def calculo_total(ws, wb):
     ws = wb['Soma']

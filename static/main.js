@@ -1,3 +1,4 @@
+// Visualização das parcelas
 document.addEventListener("DOMContentLoaded", function() {
     const metodoSelect = document.getElementById('metodo');
     const conteudoDiv = document.querySelector('.conteudo');
@@ -22,6 +23,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
+// Validação do formulário
 document.getElementById('numeros').addEventListener('input', function(e) {
     this.setCustomValidity('');
     const input = e.target;
@@ -42,3 +44,23 @@ document.getElementById('numeros').addEventListener('input', function(e) {
         document.getElementById('aviso').setAttribute('hidden', '')
     }
 });
+
+// Notificação
+document.addEventListener('DOMContentLoaded', function() {
+    var notification = document.getElementById('notification');
+    if (notification) {
+        setTimeout(function() {
+            notification.style.display = 'none';
+        }, 15000);
+    }
+});
+
+// Contador de tempo
+function countTimer(tempo, display) {
+    setInterval(() => {
+        display.textContent = `(${tempo--}s)`;
+        if (tempo < 0) tempo = 0;
+    }, 1000);
+}
+
+window.onload = () => countTimer(14, document.querySelector('#timer'));
