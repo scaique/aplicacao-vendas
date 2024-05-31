@@ -74,7 +74,7 @@ def venda_C(ws, wb, total, valor, parcelas):
     valores = valor.strip().split()
     for val in valores:
         val = int(val)
-        flash(f'R${val},00 no Crédito registrado com sucesso.', 'success')
+        flash(f'R${val},00 em {parcelas} no Crédito registrado com sucesso.', 'success')
         for c in range(1, 500):
             celula = ws[f'C{c}'].value
             if celula is None or celula == '':
