@@ -94,9 +94,6 @@ button:hover {
 }
 
 /* Planilha */
-.hoje {
-    background-color: #235502;
-}
 table {
     border-collapse: collapse;
     margin: 25px 0;
@@ -107,11 +104,15 @@ th, td {
     padding: 10px 12px;
     border: 1px solid #000000;
 }
-th {
+.escuro {
     background-color: #70AD47;
 }
-td {
+.claro, td {
     background-color: #C6E0B4;
+}
+.escuro-bold {
+    background-color: #70AD47;
+    font-weight: bold;
 }
 
 /* Botões e barra navegação */

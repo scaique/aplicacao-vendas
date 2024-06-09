@@ -3,40 +3,37 @@
 {% block title %}Total do mês{% endblock %}
 
 {% block tbody %}
-    <div id="navbar">
-        <a href="/"><button>Inicio</button></a>
-        <a href="{{ url_for('planilha_dia') }}"><button>Vendas - Dia</button></a>
-        <a href="{{ url_for('troco') }}"><button>Troco</button></a>
-        <a href="{{ url_for('planilha_mes') }}"><button>Recarregar</button></a>
-    </div>
+    <a href="/"><button>Inicio</button></a>
+    <a href="{{ url_for('planilha_dia') }}"><button>Vendas - Dia</button></a>
+    <a href="{{ url_for('troco') }}"><button>Troco</button></a>
 {% endblock %}
 
 {% block body %}
     <div>
         <h1>{{mes}}</h1>
-        <table style="font-size: 18px;">
+        <table>
             <thead>
                 <tr>
-                    <th> </th>
-                    <th>DINHEIRO</th>
-                    <th>DÉBITO</th>
-                    <th>CRÉDITO</th>
-                    <th style="background-color: #C6E0B4;"> </th>
-                    <th>TOTAL</th>
-                    <th style="background-color: #C6E0B4;"> </th>
-                    <th>TROCO</th>
-                    <th>RETIRADA</th>
-                    <th style="background-color: #C6E0B4;"> </th>
-                    <th>TROCO DO MÊS ANTERIOR</th>
+                    <th class="escuro"> </th>
+                    <th class="escuro">DINHEIRO</th>
+                    <th class="escuro">DÉBITO</th>
+                    <th class="escuro">CRÉDITO</th>
+                    <th class="claro"> </th>
+                    <th class="escuro">TOTAL</th>
+                    <th class="claro"> </th>
+                    <th class="escuro">TROCO</th>
+                    <th class="escuro">RETIRADA</th>
+                    <th class="claro"> </th>
+                    <th class="escuro">TROCO DO MÊS ANTERIOR</th>
                 </tr>
             </thead>
             <tbody>
                 {% for row in data[1:33] %}
                 <tr>
                     {% for cell in row[:11] %}
-                        <td {% if row[0] == 'DIA ' + hoje|string and cell is not none %} style="background-color: #70AD47; font-weight: bold;"
-                            {% elif row[7] == 'TOTAL:' %} style="font-weight: bold;"
-                            {% elif 'DIA' in cell|string %} style="background-color: #70AD47; font-weight: bold;"
+                        <td {% if row[0] == 'DIA ' + hoje|string and cell is not none %} class="escuro-bold"
+                            {% elif row[7] == 'TOTAL:' %} class="escuro-bold"
+                            {% elif 'DIA' in cell|string %} class="escuro-bold"
                             {% endif %} >
                             {% if 'DIA' in cell|string or 'TOTAL' in cell|string %}
                                 {{ cell if cell is not none else '' }}

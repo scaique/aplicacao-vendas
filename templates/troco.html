@@ -3,12 +3,9 @@
 {% block title %}Registrar Troco{% endblock %}
 
 {% block tbody %}
-    <div id="navbar">
-        <a href="/"><button>Inicio</button></a>
-        <a href="{{ url_for('planilha_dia') }}"><button>Vendas - Dia</button></a>
-        <a href="{{ url_for('planilha_mes') }}"><button>Vendas - Mês</button></a>
-        <a href="{{ url_for('troco') }}"><button>Recarregar</button></a>
-    </div>
+    <a href="/"><button>Inicio</button></a>
+    <a href="{{ url_for('planilha_dia') }}"><button>Vendas - Dia</button></a>
+    <a href="{{ url_for('planilha_mes') }}"><button>Vendas - Mês</button></a>
 {% endblock %}
 
 {% block body %}

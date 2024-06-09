@@ -3,12 +3,9 @@
 {% block title %}Vendas{% endblock %}
 
 {% block tbody %}
-    <div id="navbar">
-        <a href="/"><button>Inicio</button></a>
-        <a href="{{ url_for('planilha_mes') }}"><button>Vendas - Mês</button></a>
-        <a href="{{ url_for('troco') }}"><button>Troco</button></a>
-        <a href="{{ url_for('planilha_dia') }}"><button>Recarregar</button></a>
-    </div>
+    <a href="/"><button>Inicio</button></a>
+    <a href="{{ url_for('planilha_mes') }}"><button>Vendas - Mês</button></a>
+    <a href="{{ url_for('troco') }}"><button>Troco</button></a>
 {% endblock %}
 
 {% block body %}
@@ -17,10 +14,10 @@
         <table>
             <thead>
                 <tr>
-                    <th>DINHEIRO</th>
-                    <th>DÉBITO</th>
-                    <th>CRÉDITO</th>
-                    <th>PARECLAS</th>
+                    <th class="escuro">DINHEIRO</th>
+                    <th class="escuro">DÉBITO</th>
+                    <th class="escuro">CRÉDITO</th>
+                    <th class="escuro">PARECLAS</th>
                 </tr>
             </thead>
             <tbody>

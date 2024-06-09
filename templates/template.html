@@ -7,9 +7,12 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
 </head>
 <tbody>
-    {% block tbody %}
+    <div id="navbar">
+        {% block tbody %}
 
-    {% endblock %}
+        {% endblock %}
+        <a href="{{ request.url }}"><button>Recarregar</button></a>
+    </div>
 </tbody>
 <body>
     {% block body %}

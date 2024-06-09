@@ -3,11 +3,9 @@
 {% block title %}Registrar Venda{% endblock %}
 
 {% block tbody %}
-    <div id="navbar">
-        <a href="{{ url_for('planilha_dia') }}"><button>Vendas - Dia</button></a>
-        <a href="{{ url_for('planilha_mes') }}"><button>Vendas - Mês</button></a>
-        <a href="/"><button>Recarregar</button></a>
-    </div>
+    <a href="{{ url_for('planilha_dia') }}"><button>Vendas - Dia</button></a>
+    <a href="{{ url_for('planilha_mes') }}"><button>Vendas - Mês</button></a>
+    <a href="{{ url_for('troco') }}"><button>Troco</button></a>
 {% endblock %}
 
 {% block body %}
