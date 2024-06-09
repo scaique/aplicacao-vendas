@@ -33,16 +33,15 @@
             <tbody>
                 {% for row in data[1:33] %}
                 <tr>
-                    {% for cell in row[0:11] %}
-                        <td {% if 'DIA' in cell|string %} 
-                                style="background-color: #70AD47; font-weight: bold;"
-                            {% elif 'TOTAL' in cell|string %}
-                                style="font-weight: bold;"
+                    {% for cell in row[:11] %}
+                        <td {% if row[0] == 'DIA ' + hoje|string and cell is not none %} style="background-color: #70AD47; font-weight: bold;"
+                            {% elif row[7] == 'TOTAL:' %} style="font-weight: bold;"
+                            {% elif 'DIA' in cell|string %} style="background-color: #70AD47; font-weight: bold;"
                             {% endif %} >
                             {% if 'DIA' in cell|string or 'TOTAL' in cell|string %}
                                 {{ cell if cell is not none else '' }}
                             {% else %}
-                                {{ 'R$ ' + cell|string if cell is not none else '' }}
+                                {{ 'R$ ' + cell|string + ',00' if cell is not none else '' }}
                             {% endif %}
                         </td>
                     {% endfor %}

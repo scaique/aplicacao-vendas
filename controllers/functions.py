@@ -13,18 +13,49 @@ def carregar_planilha():
         wb = load_workbook(f'./Base.xlsx', data_only=True)
     return wb
 
+def calculo():
+    dia = obter_data_atual()[0]
+
+    try:
+        wb = carregar_planilha()
+        soma = wb[f'Dia {dia}']
+        somaDin = 0
+        somaDeb = 0
+        somaCre = 0
+
+        for cell in soma['A'][1:]:
+            if cell.value is not None:
+                somaDin += cell.value
+        for cell in soma['B'][1:]:
+            if cell.value is not None:
+                somaDeb += cell.value
+        for cell in soma['C'][1:]:
+            if cell.value is not None:
+                somaCre += cell.value
+
+        total = {
+            'Dinheiro': somaDin,
+            'Debito': somaDeb,
+            'Credito': somaCre,
+            'Total': somaDin+somaDeb+somaCre
+        }
+    except Exception as e:
+        return e
+    
+    return total
+
 def wb_ws_total():
     dia = obter_data_atual()[0]
 
     try:
         wb = carregar_planilha()
         ws = wb[f'Soma']
-        total = {
-            'Dinheiro': ws[f'B{dia+1}'], 
-            'Debito': ws[f'C{dia+1}'], 
-            'Credito': ws[f'D{dia+1}'], 
-            'Total': ws[f'F{dia+1}']
-        }
+        total = calculo()
+        
+        ws[f'B{dia+1}'] = total['Dinheiro']
+        ws[f'C{dia+1}'] = total['Debito']
+        ws[f'D{dia+1}'] = total['Credito']
+        ws[f'F{dia+1}'] = total['Total']
     except Exception as e:
         return e
 
@@ -58,15 +89,15 @@ def venda_D(ws, wb, total, valor, metodo):
                 celula = ws[f'A{c}'].value
                 if celula is None or celula == '':
                     ws[f'A{c}'] = val
-                    total['Dinheiro'].value += val
-                    total['Total'].value += val
+                    total['Dinheiro'] += val
+                    total['Total'] += val
                     break
             elif metodo == 'Debito':
                 celula = ws[f'B{c}'].value
                 if celula is None or celula == '':
                     ws[f'B{c}'] = val
-                    total['Debito'].value += val
-                    total['Total'].value += val
+                    total['Debito'] += val
+                    total['Total'] += val
                     break
     salvar(wb)
 
@@ -80,8 +111,8 @@ def venda_C(ws, wb, total, valor, parcelas):
             if celula is None or celula == '':
                 ws[f'C{c}'] = val
                 ws[f'D{c}'] = parcelas
-                total['Credito'].value += val
-                total['Total'].value += val
+                total['Credito'] += val
+                total['Total'] += val
                 break
     salvar(wb)
 
@@ -105,6 +136,14 @@ def troco_mes(ws, wb, valor):
 
 def calculo_total(ws, wb):
     ws = wb['Soma']
+    dia = obter_data_atual()[0]
+    total = wb_ws_total()[2]
+
+    ws[f'B{dia+1}'] = total['Dinheiro']
+    ws[f'C{dia+1}'] = total['Debito']
+    ws[f'D{dia+1}'] = total['Credito']
+    ws[f'F{dia+1}'] = total['Total']
+
     if ws['B2'].value is not None and ws['H2'].value is not None and ws['K2'].value is not None:
         total_dia1 = ws['B2'].value + ws['H2'].value - ws['K2'].value
         ws['I2'] = total_dia1

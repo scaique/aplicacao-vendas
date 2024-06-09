@@ -35,7 +35,7 @@ def register_routes(app):
             except Exception as e:
                 print(f'Erro ao calcular o total. {e}')
                 
-            return render_template('planilha_mes.html', data=data, mes=f'{mesEscrito}/{ano}')
+            return render_template('planilha_mes.html', data=data, mes=f'{mesEscrito}/{ano}', hoje=dia)
 
         @app.route('/troco')
         def troco():

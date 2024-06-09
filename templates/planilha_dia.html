@@ -30,7 +30,7 @@
                     {% if 'x' in cell|string %}
                     <td>{{ cell if cell is not none else '' }}</td>
                     {% else %}
-                    <td>{{ 'R$ ' + cell|string if cell is not none else '' }}</td>
+                    <td>{{ 'R$ ' + cell|string + ',00' if cell is not none else '' }}</td>
                     {% endif %}
                     {% endfor %}
                 </tr>
