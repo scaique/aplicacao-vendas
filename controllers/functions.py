@@ -18,6 +18,16 @@ def calculo():
 
     try:
         wb = carregar_planilha()
+    except Exception as e:
+        return e
+
+    try:
+        ws = wb[f'Dia {dia}']
+    except Exception as e:
+        ws = wb.create_sheet(f'Dia {dia}')
+        ws.append(["Dinheiro", "Débito", "Crédito", "Parcelas"])
+
+    try:
         soma = wb[f'Dia {dia}']
         somaDin = 0
         somaDeb = 0
