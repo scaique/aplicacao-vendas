@@ -3,13 +3,13 @@
 {% block title %}Vendas{% endblock %}
 
 {% block tbody %}
-    <a href="/"><button>Inicio</button></a>
-    <a href="{{ url_for('planilha_mes') }}"><button>Vendas - Mês</button></a>
-    <a href="{{ url_for('troco') }}"><button>Troco</button></a>
+    <a href="/"><button id="button">Inicio</button></a>
+    <a href="{{ url_for('planilha_mes') }}"><button id="button">Vendas - Mês</button></a>
+    <a href="{{ url_for('troco') }}"><button id="button">Troco</button></a>
 {% endblock %}
 
 {% block body %}
-    <div>
+    <!-- <div>
         <h1>{{dia}}</h1>
         <table>
             <thead>
@@ -29,6 +29,89 @@
                     {% else %}
                     <td>{{ 'R$ ' + cell|string + ',00' if cell is not none else '' }}</td>
                     {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div> -->
+    <h1>{{dia}}</h1>
+    <div id="planilha">
+        <table>
+            <thead>
+                <tr>
+                    <th class="escuro">DINHEIRO</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data[1:] %}
+                <tr>
+                    {% for cell in row[:1] %}
+                        {% if cell is not none %}
+                            <td>{{ 'R$ ' + cell|string + ',00' if cell is not none else '' }}</td>
+                            {% if cell is not none %}
+                                <form action="{{ url_for('apagar') }}" method="post">
+                                    <td style="display: none;"><input type="hidden" name="coluna" value="A"></td>
+                                    <td style="display: none;"><input type="hidden" name="valor" value="{{ cell }}"></td>
+                                    <td><button type="submit" class="apagar" style="font-size:13px; font-weight: bold;">X</button></td>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th class="escuro">DÉBITO</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data[1:] %}
+                <tr>
+                    {% for cell in row[1:2] %}
+                        {% if cell is not none %}
+                            <td>{{ 'R$ ' + cell|string + ',00' if cell is not none else '' }}</td>
+                            {% if cell is not none %}
+                                <form action="{{ url_for('apagar') }}" method="POST">
+                                    <td style="display: none;"><input type="hidden" name="coluna" value="B"></td>
+                                    <td style="display: none;"><input type="hidden" name="valor" value="{{ cell }}"></td>
+                                    <td><button type="submit" class="apagar" style="font-size:13px; font-weight: bold;">X</button></td>
+                                </form>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th class="escuro">CRÉDITO</th>
+                    <th class="escuro">PARECLAS</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data[1:] %}
+                <tr>
+                    {% for cell in row[2:4] %}
+                        {% if cell is not none %}
+                            {% if 'x' not in cell|string %}
+                                <form action="{{ url_for('apagar') }}" method="POST">
+                                    <td>{{ 'R$ ' + cell|string + ',00' if cell is not none else '' }}</td>
+                                    <td style="display: none;"><input type="hidden" name="coluna" value="C"></td>
+                                    <td style="display: none;"><input type="hidden" name="valor" value="{{ cell }}"></td>
+                            {% else %}
+                                    <td>{{ cell if cell is not none else '' }}</td>
+                                    <td><button type="submit" class="apagar" style="font-size:13px; font-weight: bold;">X</button></td>
+                                </form>
+                            {% endif %}
+                        {% endif %}
                     {% endfor %}
                 </tr>
                 {% endfor %}

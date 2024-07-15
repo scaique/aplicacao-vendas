@@ -1,6 +1,6 @@
 from flask import render_template, request, redirect, url_for
 from .date import obter_data_atual
-from .functions import wb_ws_total, venda_D, venda_C, troco_dia, troco_mes, calculo_total
+from .functions import wb_ws_total, venda_D, venda_C, troco_dia, troco_mes, calculo_total, apagarValor
 
 def register_routes(app):
     try:
@@ -57,10 +57,18 @@ def register_routes(app):
             troco_dia_valor = request.form['troco']
             troco_mes_valor = request.form['troco_mes']
             if troco_mes_valor:
-                troco_mes(ws, wb, troco_mes_valor,)
+                troco_mes(ws, wb, troco_mes_valor, dia)
             if troco_dia_valor:
                 troco_dia(ws, wb, troco_dia_valor, dia)
             return redirect(url_for('troco'))
+        
+        @app.route('/apagar_valor', methods=['POST'])
+        def apagar():
+            col = request.form['coluna']
+            val = request.form['valor']
+            apagarValor(ws, wb, val, col)
+            return redirect(url_for('planilha_dia'))
+        
     except Exception as e:
         @app.errorhandler(Exception)
         def erro_carregar(erro):

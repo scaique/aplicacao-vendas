@@ -155,7 +155,7 @@ def calculo_total(ws, wb):
     ws[f'F{dia+1}'] = total['Total']
 
     if ws['B2'].value is not None and ws['H2'].value is not None and ws['K2'].value is not None:
-        total_dia1 = ws['B2'].value + ws['H2'].value - ws['K2'].value
+        total_dia1 = ws['B2'].value + ws['K2'].value - ws['H2'].value
         ws['I2'] = total_dia1
 
     for c in range(3, 33):
@@ -172,3 +172,26 @@ def calculo_total(ws, wb):
             ws['I33'].value = total_mes
 
     salvar(wb)
+
+def apagarValor(ws, wb, val, col):
+    if col != 'C':
+        val = int(val)
+        for c in range(500, 1, -1):
+            celula = ws[f'{col}{c}'].value
+            if celula is not None:
+                if celula == val:
+                    ws[f'{col}{c}'].value = None
+                    break
+    else:
+        val = int(val)
+        for c in range(500, 1, -1):
+            celula = ws[f'{col}{c}'].value
+            if celula is not None:
+                if celula == val:
+                    ws[f'C{c}'].value = None
+                    ws[f'D{c}'].value = None
+                    break
+    
+    salvar(wb)
+    flash(f'R${val},00 deletado com sucesso.', 'success')
+    

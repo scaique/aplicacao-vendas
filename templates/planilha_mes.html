@@ -3,9 +3,9 @@
 {% block title %}Total do mês{% endblock %}
 
 {% block tbody %}
-    <a href="/"><button>Inicio</button></a>
-    <a href="{{ url_for('planilha_dia') }}"><button>Vendas - Dia</button></a>
-    <a href="{{ url_for('troco') }}"><button>Troco</button></a>
+    <a href="/"><button id="button">Inicio</button></a>
+    <a href="{{ url_for('planilha_dia') }}"><button id="button">Vendas - Dia</button></a>
+    <a href="{{ url_for('troco') }}"><button id="button">Troco</button></a>
 {% endblock %}
 
 {% block body %}
