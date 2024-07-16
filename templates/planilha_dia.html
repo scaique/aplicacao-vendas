@@ -53,7 +53,7 @@
                                 <form action="{{ url_for('apagar') }}" method="post">
                                     <td style="display: none;"><input type="hidden" name="coluna" value="A"></td>
                                     <td style="display: none;"><input type="hidden" name="valor" value="{{ cell }}"></td>
-                                    <td><button type="submit" class="apagar" style="font-size:13px; font-weight: bold;">X</button></td>
+                                    <td><button type="submit" class="apagar"><img style="width: 13px; height: 13px;" src="{{ url_for('static', filename='images/lata-de-lixo.png') }}"></button></td>
                                 </form>
                             {% endif %}
                         {% endif %}
@@ -79,7 +79,7 @@
                                 <form action="{{ url_for('apagar') }}" method="POST">
                                     <td style="display: none;"><input type="hidden" name="coluna" value="B"></td>
                                     <td style="display: none;"><input type="hidden" name="valor" value="{{ cell }}"></td>
-                                    <td><button type="submit" class="apagar" style="font-size:13px; font-weight: bold;">X</button></td>
+                                    <td><button type="submit" class="apagar"><img style="width: 13px; height: 13px;" src="{{ url_for('static', filename='images/lata-de-lixo.png') }}"></button></td>
                                 </form>
                             {% endif %}
                         {% endif %}
@@ -108,7 +108,7 @@
                                     <td style="display: none;"><input type="hidden" name="valor" value="{{ cell }}"></td>
                             {% else %}
                                     <td>{{ cell if cell is not none else '' }}</td>
-                                    <td><button type="submit" class="apagar" style="font-size:13px; font-weight: bold;">X</button></td>
+                                    <td><button type="submit" class="apagar"><img style="width: 13px; height: 13px;" src="{{ url_for('static', filename='images/lata-de-lixo.png') }}"></button></td>
                                 </form>
                             {% endif %}
                         {% endif %}
