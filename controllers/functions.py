@@ -173,25 +173,26 @@ def calculo_total(ws, wb):
 
     salvar(wb)
 
-def apagarValor(ws, wb, val, col):
-    if col != 'C':
-        val = int(val)
+def apagarValor(ws, wb, valor, coluna, parcela: None):
+    if coluna != 'C':
+        valor = int(valor)
         for c in range(500, 1, -1):
-            celula = ws[f'{col}{c}'].value
+            celula = ws[f'{coluna}{c}'].value
             if celula is not None:
-                if celula == val:
-                    ws[f'{col}{c}'].value = None
+                if celula == valor:
+                    ws[f'{coluna}{c}'].value = None
                     break
     else:
-        val = int(val)
+        valor = int(valor)
         for c in range(500, 1, -1):
-            celula = ws[f'{col}{c}'].value
-            if celula is not None:
-                if celula == val:
-                    ws[f'C{c}'].value = None
+            celulaC = ws[f'{coluna}{c}'].value
+            celulaD = ws[f'D{c}'].value
+            if celulaC is not None and celulaD is not None:
+                if celulaC == valor and celulaD == parcela:
+                    ws[f'{coluna}{c}'].value = None
                     ws[f'D{c}'].value = None
                     break
     
     salvar(wb)
-    flash(f'R${val},00 deletado com sucesso.', 'success')
+    flash(f'R${valor},00 deletado com sucesso.' if coluna != 'C' else f'R${valor},00 ({parcela}) deletado com sucesso.', 'success')
     

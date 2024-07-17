@@ -64,9 +64,13 @@ def register_routes(app):
         
         @app.route('/apagar_valor', methods=['POST'])
         def apagar():
-            col = request.form['coluna']
-            val = request.form['valor']
-            apagarValor(ws, wb, val, col)
+            valor = request.form['valor']
+            coluna = request.form['coluna']
+            if coluna == 'A' or coluna == 'B':
+                apagarValor(ws, wb, valor, coluna, parcela=None)
+            elif coluna == 'C':
+                parcela = request.form['parcela']
+                apagarValor(ws, wb, valor, coluna, parcela)
             return redirect(url_for('planilha_dia'))
         
     except Exception as e:
