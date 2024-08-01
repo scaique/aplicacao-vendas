@@ -57,7 +57,7 @@ def register_routes(app):
             troco_dia_valor = request.form['troco']
             troco_mes_valor = request.form['troco_mes']
             if troco_mes_valor:
-                troco_mes(ws, wb, troco_mes_valor, dia)
+                troco_mes(ws, wb, troco_mes_valor)
             if troco_dia_valor:
                 troco_dia(ws, wb, troco_dia_valor, dia)
             return redirect(url_for('troco'))

@@ -6,6 +6,9 @@ import os
 mesEscrito = obter_data_atual()[3]
 ano = obter_data_atual()[2]
 
+def notificar(mensagem):
+    flash(mensagem, 'success')
+
 def carregar_planilha():
     try:
         wb = load_workbook(f'./planilhas/{ano}/{mesEscrito} {ano}.xlsx', data_only=True)
@@ -79,21 +82,21 @@ def wb_ws_total():
 
 def salvar(wb):
     if not os.path.exists(f'./planilhas'):
-        flash("Criando diretório 'planilhas'...", 'success')
+        notificar("Criando diretório 'planilhas'...")
         os.mkdir(f'./planilhas')
     if not os.path.exists(f'./planilhas/{ano}'):
-        flash(f"Criando diretório 'planilhas/{ano}'...", 'success')
+        notificar(f"Criando diretório 'planilhas/{ano}'...")
         os.mkdir(f'./planilhas/{ano}')
     try:
         wb.save(f'./planilhas/{ano}/{mesEscrito} {ano}.xlsx')
     except PermissionError:
-        flash('Erro ao salvar, talvez você precise fechar a planilha!', 'success')
+        notificar('Erro ao salvar, talvez você precise fechar a planilha!')
 
 def venda_D(ws, wb, total, valor, metodo):
     valores = valor.strip().split()
     for val in valores:
         val = int(val)
-        flash(f'R${val},00 no {metodo} registrado com sucesso.', 'success')
+        notificar(f'R${val},00 no {metodo} registrado com sucesso.')
         for c in range(1, 500):
             if metodo == 'Dinheiro':
                 celula = ws[f'A{c}'].value
@@ -115,7 +118,7 @@ def venda_C(ws, wb, total, valor, parcelas):
     valores = valor.strip().split()
     for val in valores:
         val = int(val)
-        flash(f'R${val},00 em {parcelas} no Crédito registrado com sucesso.', 'success')
+        notificar(f'R${val},00 em {parcelas} no Crédito registrado com sucesso.')
         for c in range(1, 500):
             celula = ws[f'C{c}'].value
             if celula is None or celula == '':
@@ -134,7 +137,7 @@ def troco_dia(ws, wb, valor, dia):
     if ws['H33'].value != 'TOTAL:':
         ws[f'H33'].value = 'TOTAL:'
     salvar(wb)
-    flash(f'Troco no valor de R${valor},00 registrado com sucesso.', 'success')
+    notificar(f'Troco no valor de R${valor},00 registrado com sucesso.')
 
 def troco_mes(ws, wb, valor):
     valor = int(valor)
@@ -142,7 +145,7 @@ def troco_mes(ws, wb, valor):
     ws['K2'] = valor
     ws['H2'] = valor
     salvar(wb)
-    flash(f'Troco no valor de R${valor},00 registrado com sucesso.', 'success')
+    notificar(f'Troco no valor de R${valor},00 registrado com sucesso.')
 
 def calculo_total(ws, wb):
     ws = wb['Soma']
@@ -194,5 +197,5 @@ def apagarValor(ws, wb, valor, coluna, parcela: None):
                     break
     
     salvar(wb)
-    flash(f'R${valor},00 deletado com sucesso.' if coluna != 'C' else f'R${valor},00 ({parcela}) deletado com sucesso.', 'success')
+    notificar(f'R${valor},00 deletado com sucesso.' if coluna != 'C' else f'R${valor},00 ({parcela}) deletado com sucesso.')
     
